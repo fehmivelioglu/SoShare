@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Kategoriler extends StatelessWidget {
   @override
@@ -17,13 +18,19 @@ class Kategoriler extends StatelessWidget {
                   label: 'Hayvanlar',
                 ),
               ),
-              IconContent(
-                icon: Icons.monetization_on,
-                label: 'Ekonomi',
+              GestureDetector(
+                onTap: () => null,
+                child: IconContent(
+                  icon: Icons.monetization_on,
+                  label: 'Ekonomi',
+                ),
               ),
-              IconContent(
-                icon: Icons.warning_amber_outlined,
-                label: 'Sağlık',
+              GestureDetector(
+                onTap: () => null,
+                child: IconContent(
+                  icon: Icons.warning_amber_outlined,
+                  label: 'Sağlık',
+                ),
               )
             ],
           ),
