@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "149545574654",
+    "project_id": "soshare-konat",
+    "storage_bucket": "soshare-konat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149545574654:android:48be72f12d7246182f45af",
+        "android_client_info": {
+          "package_name": "com.konat.soshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149545574654-msnc8oo13eltfci1ufqh405v4vlhed29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGd7YAwWK7TLXF4z9sISaj5srhgXl2b_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149545574654-msnc8oo13eltfci1ufqh405v4vlhed29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
