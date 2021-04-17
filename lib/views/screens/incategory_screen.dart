@@ -1,8 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:soshare/views/screens/category_screen.dart';
+import 'package:soshare/views/screens/first_screen.dart';
+import 'package:soshare/views/screens/info_screens.dart';
 
-class InCategory extends StatelessWidget {
+class InCategory extends StatefulWidget {
+  @override
+  _InCategoryState createState() => _InCategoryState();
+}
+
+class _InCategoryState extends State<InCategory> {
   @override
   Widget build(BuildContext context) {
     var users = FirebaseFirestore.instance
@@ -23,30 +31,53 @@ class InCategory extends StatelessWidget {
             return Text(' Yükleniyor');
           }
 
-          return ListView(
-            children: snapshot.data.docs.map((DocumentSnapshot document) {
-              return Column(
-                children: [
-                  ListTile(
-                    onTap: () => null,
-                    title: Text(document.data()['title']),
-                    subtitle: Text(document.data()['subtitle']),
-                    leading: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.amber,
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image:
-                                  NetworkImage(document.data()['imageurl']))),
-                    ),
+          return Hero(
+            tag: 'Icon',
+            child: ListView(
+              children: snapshot.data.docs.map((DocumentSnapshot document) {
+                return Material(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: () async {
+                          await FirebaseFirestore.instance
+                              .collection('petitions')
+                              .doc(document.id)
+                              .get()
+                              .then((e) {
+                            imgurl = e.data()['imageurl'];
+                            title = e.data()['title'];
+                            bagismi = e.data()['bagis'];
+                            imzami = e.data()['imza'];
+                            subtitle = e.data()['subtitle'];
+                          });
+
+                          // await Get.to(InfoScreen());
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => InfoScreen()));
+                        },
+                        title: Text(document.data()['title']),
+                        subtitle: Text(document.data()['subtitle']),
+                        leading: Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.amber,
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(
+                                      document.data()['imageurl']))),
+                        ),
+                      ),
+                      Divider(),
+                    ],
                   ),
-                  Divider(),
-                ],
-              );
-            }).toList(),
+                );
+              }).toList(),
+            ),
           );
         },
       ),

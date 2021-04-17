@@ -1,6 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:soshare/views/screens/info_screens.dart';
+
+String imgurl;
+String title;
+String subtitle;
+bool bagismi;
+bool imzami;
 
 class Bagislar extends StatefulWidget {
   @override
@@ -23,9 +30,6 @@ class _BagislarState extends State<Bagislar> {
           return Text(' Yükleniyor');
         }
 
-        //Hero olmamış gibi?
-
-
         return ListView(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
             return Column(
@@ -33,27 +37,34 @@ class _BagislarState extends State<Bagislar> {
                 Hero(
                   tag: 'Icon',
                   child: ListTile(
-                   onTap: (){
-                     setState(() {
-                       Navigator.push(
-                         context,
-                         MaterialPageRoute(builder: (context) => InfoScreen()),
-                       );
-                     });
-                   },
-                   title: Text(document.data()['title']),
-                   subtitle: Text(document.data()['subtitle']),
-                   leading: Container(
-                     width: 50,
-                     height: 50,
-                     decoration: BoxDecoration(
-                         shape: BoxShape.circle,
-                         color: Colors.amber,
-                         image: DecorationImage(
-                             fit: BoxFit.fill,
-                             image: NetworkImage(document.data()['imageurl']))),
-                   ),
+                    onTap: () async {
+                      await FirebaseFirestore.instance
+                          .collection('petitions')
+                          .doc(document.id)
+                          .get()
+                          .then((e) {
+                        imgurl = e.data()['imageurl'];
+                        title = e.data()['title'];
+                        bagismi = e.data()['bagis'];
+                        imzami = e.data()['imza'];
+                        subtitle = e.data()['subtitle'];
+                      });
+                      await Get.to(InfoScreen());
+                    },
+                    title: Text(document.data()['title']),
+                    subtitle: Text(document.data()['subtitle']),
+                    leading: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.amber,
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image:
+                                  NetworkImage(document.data()['imageurl']))),
                     ),
+                  ),
                 ),
                 Divider(),
               ],
@@ -65,7 +76,12 @@ class _BagislarState extends State<Bagislar> {
   }
 }
 
-class Imzalar extends StatelessWidget {
+class Imzalar extends StatefulWidget {
+  @override
+  _ImzalarState createState() => _ImzalarState();
+}
+
+class _ImzalarState extends State<Imzalar> {
   @override
   Widget build(BuildContext context) {
     var users = FirebaseFirestore.instance
@@ -83,19 +99,35 @@ class Imzalar extends StatelessWidget {
 
         return ListView(
           children: snapshot.data.docs.map((DocumentSnapshot document) {
-            return ListTile(
-              onTap: () => null,
-              title: Text(document.data()['title']),
-              subtitle: Text(document.data()['subtitle']),
-              leading: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.amber,
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(document.data()['imageurl']))),
+            return Hero(
+              tag: 'Icon',
+              child: ListTile(
+                onTap: () async {
+                  await FirebaseFirestore.instance
+                      .collection('petitions')
+                      .doc(document.id)
+                      .get()
+                      .then((e) {
+                    imgurl = e.data()['imageurl'];
+                    title = e.data()['title'];
+                    bagismi = e.data()['bagis'];
+                    imzami = e.data()['imza'];
+                    subtitle = e.data()['subtitle'];
+                  });
+                  await Get.to(InfoScreen());
+                },
+                title: Text(document.data()['title']),
+                subtitle: Text(document.data()['subtitle']),
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.amber,
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(document.data()['imageurl']))),
+                ),
               ),
             );
           }).toList(),
@@ -105,13 +137,12 @@ class Imzalar extends StatelessWidget {
   }
 }
 
-
 class HeroList extends StatelessWidget {
   @override
-  Widget  build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      title: Text('Deneme'),
+        title: Text('Deneme'),
       ),
       body: Center(
         child: Hero(
