@@ -1,9 +1,10 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:soshare/views/screens/category_screen.dart';
-import 'package:soshare/views/screens/first_screen.dart';
-import 'package:soshare/views/screens/new_screen.dart';
-import 'package:soshare/views/screens/profile_screen.dart';
+
+import 'category_screen.dart';
+import 'new_screen.dart';
+import 'petitions_screen.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -32,8 +33,8 @@ class _HomeScreenState extends State<HomeScreen>
           physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: [
-            Bagislar(),
-            Imzalar(),
+            PetitionsScreen(type: 'bagis'),
+            PetitionsScreen(type: 'imza'),
             NewScreen(),
             Kategoriler(),
             Profile()
@@ -48,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen>
             TabItem(icon: Icons.person, title: 'Profil'),
           ],
           controller: _tabController,
-          onTap: (int i) => print('click index=$i'),
         ));
   }
 }

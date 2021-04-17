@@ -1,95 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:soshare/views/screens/incategory_screen.dart';
+import 'package:soshare/core/constants/mockData.dart';
+import 'package:soshare/views/screens/petitions_screen.dart';
+import 'package:soshare/views/widgets/icon_content.dart';
 
 class Kategoriler extends StatelessWidget {
+  final MockDatas datas = MockDatas();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () => showCategory(0, 'Hayvanlar'),
-                child: IconContent(
-                  icon: Icons.pets,
-                  label: 'Hayvanlar',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => showCategory(1, 'Ekonomi'),
-                child: IconContent(
-                  icon: Icons.account_balance,
-                  label: 'Ekonomi',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => showCategory(2, 'Sağlık'),
-                child: IconContent(
-                  icon: Icons.favorite,
-                  label: 'Sağlık',
-                ),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () => showCategory(3, 'Eğitim'),
-                child: IconContent(
-                  icon: Icons.school,
-                  label: 'Eğitim',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => showCategory(4, 'Çevre'),
-                child: IconContent(
-                  icon: Icons.public,
-                  label: 'Çevre',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => showCategory(5, 'Adalet'),
-                child: IconContent(
-                  icon: Icons.gavel,
-                  label: 'Adalet',
-                ),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () => showCategory(6, 'İnsan Hakları'),
-                child: IconContent(
-                  icon: Icons.people,
-                  label: 'İnsan Hakları',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => showCategory(7, 'Gıda'),
-                child: IconContent(
-                  icon: Icons.fastfood,
-                  label: 'Gıda',
-                ),
-              ),
-              GestureDetector(
-                onTap: () => showCategory(8, 'Diğer'),
-                child: IconContent(
-                  icon: Icons.timeline,
-                  label: 'Diğer',
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: buildGestureList()),
     );
+  }
+
+  List<Row> buildGestureList() {
+    var list = <Row>[];
+    for (var i = 0; i < 3; i++) {
+      list.add(Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: buildGestureDetector(i)));
+    }
+    return list;
+  }
+
+  List<GestureDetector> buildGestureDetector(int row) {
+    var widget = <GestureDetector>[];
+    for (var i = 0; i < 3; i++) {
+      widget.add(GestureDetector(
+        onTap: () =>
+            showCategory((row * 3) + i, MockDatas.Kategoriler[(row * i) + i]),
+        child: IconContent(
+          icon: MockDatas.catIcons[(row * 3) + i],
+          label: MockDatas.Kategoriler[(row * 3) + i],
+        ),
+      ));
+    }
+
+    return widget;
   }
 }
 
@@ -98,40 +47,5 @@ String name = 'Hayvanlar';
 Future showCategory(int i, String s) {
   cat = i;
   name = s;
-  return Get.to(InCategory());
-}
-
-class IconContent extends StatelessWidget {
-  IconContent({@required this.icon, this.label});
-
-  final IconData icon;
-  final String label;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50), color: Colors.black45),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: 60.0,
-          ),
-          SizedBox(
-            height: 5.0,
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 10.0,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  return Get.to(PetitionsScreen(type: 'cat', appBar: true, cat: cat));
 }

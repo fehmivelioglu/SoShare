@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:soshare/core/model/model.dart';
+import 'package:soshare/core/model/kampanya_model.dart';
 
 class KampanyaService {
   static KampanyaService _instance;

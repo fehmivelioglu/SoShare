@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:soshare/core/constants/const.dart';
-import 'package:soshare/core/model/model.dart';
-import 'package:soshare/core/services/kampanya_service.dart';
+
+import '../../core/constants/const.dart';
+import '../../core/model/kampanya_model.dart';
+import '../../core/services/kampanya_service.dart';
 
 class InfoScreen extends StatefulWidget {
   final String documentId;
