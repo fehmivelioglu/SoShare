@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:soshare/views/screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  Firebase.initializeApp();
+  runApp(App());
 }
 
 class App extends StatelessWidget {
@@ -36,17 +38,5 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         home: HomeScreen());
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }

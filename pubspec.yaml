@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   pedantic: ^1.11.0
   firebase_core: ^1.0.3
+  cloud_firestore: ^1.0.5
+  spincircle_bottom_bar: ^1.0.0
 
 dev_dependencies:
   flutter_test:
