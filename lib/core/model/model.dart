@@ -5,13 +5,19 @@ class Kampanya {
   String price;
   String name;
   String img;
+  bool imza;
+  bool bagis;
+  String content;
 
-  Kampanya(DocumentSnapshot e, {this.id, this.price, this.name, this.img});
+  Kampanya(DocumentSnapshot e, {this.id, this.price, this.name, this.img,this.imza,this.bagis,this.content});
 
   Kampanya.fromMap(DocumentSnapshot snapshot, String id)
       : id = id ?? '',
         name = snapshot.data()['title'] ?? '',
-        img = snapshot.data()['imageurl'] ?? '';
+        img = snapshot.data()['imageurl'] ?? '',
+        imza = snapshot.data()['imza'] ?? '',
+        bagis = snapshot.data()['bagis'] ?? '',
+        content = snapshot.data()['subtitle'] ?? '';
 
   Map<String, String> toJson() {
     return {

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:soshare/views/screens/category_screen.dart';
-import 'package:soshare/views/screens/first_screen.dart';
 import 'package:soshare/views/screens/info_screens.dart';
 
 class InCategory extends StatefulWidget {
@@ -44,13 +43,13 @@ class _InCategoryState extends State<InCategory> {
                               .doc(document.id)
                               .get()
                               .then((e) {
-                            imgurl = e.data()['imageurl'];
-                            title = e.data()['title'];
-                            bagismi = e.data()['bagis'];
-                            imzami = e.data()['imza'];
-                            subtitle = e.data()['subtitle'];
+                            // imgurl = e.data()['imageurl'];
+                            // title = e.data()['title'];
+                            // bagismi = e.data()['bagis'];
+                            // imzami = e.data()['imza'];
+                            // subtitle = e.data()['subtitle'];
                           });
-                          showAlert(context);
+                          showAlert(context,document.id);
                         },
                         title: Text(document.data()['title']),
                         subtitle: Text(document.data()['subtitle']),
@@ -79,6 +78,6 @@ class _InCategoryState extends State<InCategory> {
   }
 }
 
-void showAlert(context) {
-  showDialog(context: context, builder: (context) => InfoScreen());
+void showAlert(context,String id) {
+  showDialog(context: context, builder: (context) => InfoScreen(documentId: id,));
 }
