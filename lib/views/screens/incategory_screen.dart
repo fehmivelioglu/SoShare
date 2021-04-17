@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:soshare/views/screens/category_screen.dart';
 import 'package:soshare/views/screens/first_screen.dart';
 import 'package:soshare/views/screens/info_screens.dart';
@@ -51,12 +50,7 @@ class _InCategoryState extends State<InCategory> {
                             imzami = e.data()['imza'];
                             subtitle = e.data()['subtitle'];
                           });
-
-                          // await Get.to(InfoScreen());
-                          await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InfoScreen()));
+                          showAlert(context);
                         },
                         title: Text(document.data()['title']),
                         subtitle: Text(document.data()['subtitle']),
@@ -83,4 +77,8 @@ class _InCategoryState extends State<InCategory> {
       ),
     );
   }
+}
+
+void showAlert(context) {
+  showDialog(context: context, builder: (context) => InfoScreen());
 }

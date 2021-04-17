@@ -22,7 +22,7 @@ class _InfoScreenState extends State<InfoScreen> {
               children: [
                 RowWidget(),
                 Expanded(child: Text(subtitle)),
-                Buttons()
+                Buttons(),
               ],
             )));
   }
