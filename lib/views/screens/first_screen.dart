@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:soshare/core/model/model.dart';
 import 'package:soshare/views/screens/info_screens.dart';
 
 String imgurl;
@@ -15,6 +16,7 @@ class Bagislar extends StatefulWidget {
 }
 
 class _BagislarState extends State<Bagislar> {
+  List<Kampanya> degisken = [];
   @override
   Widget build(BuildContext context) {
     var users = FirebaseFirestore.instance
@@ -48,11 +50,14 @@ class _BagislarState extends State<Bagislar> {
                         bagismi = e.data()['bagis'];
                         imzami = e.data()['imza'];
                         subtitle = e.data()['subtitle'];
+                        degisken.add(Kampanya.fromMap(e, 'id'));
+                        print(degisken.length);
+                        print(degisken[0].name);
                       });
                       await Get.to(InfoScreen());
                     },
                     title: Text(document.data()['title']),
-                    subtitle: Text(document.data()['subtitle']),
+                    subtitle: Text(document.data()['cat'].toString()),
                     leading: Container(
                       width: 50,
                       height: 50,
@@ -117,7 +122,7 @@ class _ImzalarState extends State<Imzalar> {
                   await Get.to(InfoScreen());
                 },
                 title: Text(document.data()['title']),
-                subtitle: Text(document.data()['subtitle']),
+                subtitle: Text(document.data()['cat'].toString()),
                 leading: Container(
                   width: 50,
                   height: 50,
