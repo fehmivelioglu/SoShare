@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soshare/views/const.dart';
+import 'package:soshare/core/constants/const.dart';
 import 'package:soshare/views/screens/first_screen.dart';
 
 class InfoScreen extends StatefulWidget {
