@@ -6,7 +6,7 @@ class Bagislar extends StatelessWidget {
   Widget build(BuildContext context) {
     var users = FirebaseFirestore.instance
         .collection('petitions')
-        .where('category', isEqualTo: 0);
+        .where('bagis', isEqualTo: true);
 
     return StreamBuilder<QuerySnapshot>(
       stream: users.snapshots(),
@@ -51,7 +51,7 @@ class Imzalar extends StatelessWidget {
   Widget build(BuildContext context) {
     var users = FirebaseFirestore.instance
         .collection('petitions')
-        .where('category', isEqualTo: 1);
+        .where('imza', isEqualTo: true);
 
     return StreamBuilder<QuerySnapshot>(
       stream: users.snapshots(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:soshare/views/screens/incategory_screen.dart';
 
 class Kategoriler extends StatelessWidget {
   @override
@@ -12,24 +13,76 @@ class Kategoriler extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                onTap: () => null,
+                onTap: () => showCategory(0, 'Hayvanlar'),
                 child: IconContent(
                   icon: Icons.pets,
                   label: 'Hayvanlar',
                 ),
               ),
               GestureDetector(
-                onTap: () => null,
+                onTap: () => showCategory(1, 'Ekonomi'),
                 child: IconContent(
-                  icon: Icons.monetization_on,
+                  icon: Icons.account_balance,
                   label: 'Ekonomi',
                 ),
               ),
               GestureDetector(
-                onTap: () => null,
+                onTap: () => showCategory(2, 'Sağlık'),
                 child: IconContent(
-                  icon: Icons.warning_amber_outlined,
+                  icon: Icons.favorite,
                   label: 'Sağlık',
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () => showCategory(3, 'Eğitim'),
+                child: IconContent(
+                  icon: Icons.school,
+                  label: 'Eğitim',
+                ),
+              ),
+              GestureDetector(
+                onTap: () => showCategory(4, 'Çevre'),
+                child: IconContent(
+                  icon: Icons.public,
+                  label: 'Çevre',
+                ),
+              ),
+              GestureDetector(
+                onTap: () => showCategory(5, 'Adalet'),
+                child: IconContent(
+                  icon: Icons.gavel,
+                  label: 'Adalet',
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () => showCategory(6, 'İnsan Hakları'),
+                child: IconContent(
+                  icon: Icons.people,
+                  label: 'İnsan Hakları',
+                ),
+              ),
+              GestureDetector(
+                onTap: () => showCategory(7, 'Gıda'),
+                child: IconContent(
+                  icon: Icons.fastfood,
+                  label: 'Gıda',
+                ),
+              ),
+              GestureDetector(
+                onTap: () => showCategory(8, 'Diğer'),
+                child: IconContent(
+                  icon: Icons.timeline,
+                  label: 'Diğer',
                 ),
               )
             ],
@@ -38,6 +91,14 @@ class Kategoriler extends StatelessWidget {
       ),
     );
   }
+}
+
+int cat = 0;
+String name = 'Hayvanlar';
+Future showCategory(int i, String s) {
+  cat = i;
+  name = s;
+  return Get.to(InCategory());
 }
 
 class IconContent extends StatelessWidget {

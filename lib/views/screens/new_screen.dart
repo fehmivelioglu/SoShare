@@ -6,51 +6,139 @@ class NewScreen extends StatefulWidget {
   _NewScreenState createState() => _NewScreenState();
 }
 
-final cont0 = TextEditingController();
 final cont1 = TextEditingController();
 final cont2 = TextEditingController();
-final cont3 = TextEditingController();
-final cont4 = TextEditingController();
-final cont5 = TextEditingController();
-final cont6 = TextEditingController();
-final wordlistcoll = FirebaseFirestore.instance.collection('wordlist');
-int size = 5;
+int category = 0;
+bool bagis = false;
+bool imza = false;
 
 class _NewScreenState extends State<NewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(8.0),
-        child: Column(children: [
-          TextField(controller: cont6, decoration: decor('id')),
-          TextField(controller: cont0, decoration: decor('kelime')),
-          TextField(controller: cont1, decoration: decor('1')),
-          TextField(controller: cont2, decoration: decor('2')),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                  onPressed: () async {
-                    await addUser();
-                  },
-                  child: Text('Kelime Ekle')),
-            ],
-          ),
-        ]),
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.all(28.0),
+          child: Column(children: [
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  DropDownCategoryOne(),
+                  DropDownCategoryTwo(),
+                ],
+              ),
+            ),
+            TextField(controller: cont1, decoration: decor('title')),
+            TextField(controller: cont2, decoration: decor('subtitle')),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        addUser(cont1.text, cont2.text, category, imza, bagis);
+                      },
+                      child: Text('Kampanya Başlat')),
+                ],
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
 }
 
-Future<void> addUser() {
+class DropDownCategoryOne extends StatefulWidget {
+  @override
+  _DropDownCategoryOneState createState() => _DropDownCategoryOneState();
+}
+
+class _DropDownCategoryOneState extends State<DropDownCategoryOne> {
+  int _value;
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: DropdownButton<int>(
+        items: [
+          DropdownMenuItem<int>(value: 0, child: Text('Hayvanlar')),
+          DropdownMenuItem<int>(value: 1, child: Text('Ekonomi')),
+          DropdownMenuItem<int>(value: 2, child: Text('Sağlık')),
+          DropdownMenuItem<int>(value: 3, child: Text('Eğitim')),
+          DropdownMenuItem<int>(value: 4, child: Text('Çevre')),
+          DropdownMenuItem<int>(value: 5, child: Text('Adalet')),
+          DropdownMenuItem<int>(value: 6, child: Text('İnsan Hakları')),
+          DropdownMenuItem<int>(value: 7, child: Text('Gıda')),
+          DropdownMenuItem<int>(value: 8, child: Text('Diğer'))
+        ],
+        onChanged: (int value) {
+          setState(() {
+            category = value;
+            _value = value;
+          });
+        },
+        value: _value,
+        hint: Text('Kategori'),
+      ),
+    );
+  }
+}
+
+class DropDownCategoryTwo extends StatefulWidget {
+  @override
+  _DropDownCategoryTwoState createState() => _DropDownCategoryTwoState();
+}
+
+class _DropDownCategoryTwoState extends State<DropDownCategoryTwo> {
+  int _value;
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<int>(
+      items: [
+        DropdownMenuItem<int>(value: 0, child: Text('Bağış')),
+        DropdownMenuItem<int>(value: 1, child: Text('İmza')),
+        DropdownMenuItem<int>(value: 2, child: Text('Her ikisi')),
+      ],
+      value: _value,
+      onChanged: (int value) {
+        setState(() {
+          if (value == 0) {
+            bagis = true;
+            imza = false;
+            _value = value;
+          } else if (value == 1) {
+            bagis = false;
+            imza = true;
+            _value = value;
+          } else if (value == 2) {
+            bagis = true;
+            imza = true;
+            _value = value;
+          }
+        });
+      },
+      hint: Text('Tip'),
+    );
+  }
+}
+
+Future<void> addUser(
+  String title,
+  String subtitle,
+  int cat,
+  bool imza,
+  bool bagis,
+) {
   return FirebaseFirestore.instance
       .collection('petitions')
       .add({
-        'category': 0,
+        'cat': cat,
+        'imza': imza,
+        'bagis': bagis,
         'imageurl': 'https://picsum.photos/200',
-        'title': 'title123123',
-        'subtitle': 'subtitel13213',
+        'title': title,
+        'subtitle': subtitle,
       })
       .then((value) => print('User Added'))
       .catchError((error) => print('Failed to add user: {$error}'));
