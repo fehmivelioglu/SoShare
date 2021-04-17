@@ -9,7 +9,14 @@ class Kampanya {
   bool bagis;
   String content;
 
-  Kampanya(DocumentSnapshot e, {this.id, this.price, this.name, this.img,this.imza,this.bagis,this.content});
+  Kampanya(DocumentSnapshot e,
+      {this.id,
+      this.price,
+      this.name,
+      this.img,
+      this.imza,
+      this.bagis,
+      this.content});
 
   Kampanya.fromMap(DocumentSnapshot snapshot, String id)
       : id = id ?? '',

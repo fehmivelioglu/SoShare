@@ -2,6 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:soshare/core/model/model.dart';
 
 class KampanyaService {
+  static KampanyaService _instance;
+  static KampanyaService get instance {
+    _instance ??= KampanyaService._init();
+    return _instance;
+  }
+
+  KampanyaService._init();
   Future<List<Kampanya>> getKampanya(String id) async {
     var kampanyalar = <Kampanya>[];
     await FirebaseFirestore.instance

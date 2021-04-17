@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soshare/core/model/model.dart';
-import 'package:soshare/core/services/kampanya_service.dart';
 import 'package:soshare/views/screens/info_screens.dart';
 
 // String imgurl;
@@ -43,7 +42,7 @@ class _BagislarState extends State<Bagislar> {
                   tag: 'Icon',
                   child: ListTile(
                     onTap: () async {
-                     await KampanyaService().getKampanya(document.id);
+                    //  await KampanyaService().getKampanya(document.id);
                       await FirebaseFirestore.instance
                           .collection('petitions')
                           .doc(document.id)

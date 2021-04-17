@@ -12,7 +12,7 @@ class InfoScreen extends StatefulWidget {
 }
 
 class _InfoScreenState extends State<InfoScreen> {
-  final KampanyaService _kampanyaService = KampanyaService();
+  final KampanyaService _kampanyaService = KampanyaService.instance;
   Future _future;
   List<Kampanya> _kampanyalar = [];
   @override
@@ -38,9 +38,9 @@ class _InfoScreenState extends State<InfoScreen> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      RowWidget(kampanya:_kampanyalar[0]),
+                      RowWidget(kampanya: _kampanyalar[0]),
                       Expanded(child: Text(_kampanyalar[0].content)),
-                      Buttons(kampanya:_kampanyalar[0]),
+                      Buttons(kampanya: _kampanyalar[0]),
                     ],
                   );
                 }
@@ -103,7 +103,7 @@ class RowWidget extends StatelessWidget {
           ),
           Text(
             kampanya.name.toUpperCase(),
-            style: kHeightTextStyle,
+            style: AppConstants.kHeightTextStyle,
           )
         ],
       ),
