@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/constants/const.dart';
 import '../../core/model/kampanya_model.dart';
 import '../../core/services/kampanya_service.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class InfoScreen extends StatefulWidget {
   final String documentId;
@@ -29,25 +30,46 @@ class _InfoScreenState extends State<InfoScreen> {
           title: Text('Deneme'),
           centerTitle: true,
         ),
-        body: Hero(
-            tag: 'Icon',
-            child: FutureBuilder(
-              future: _future,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  _kampanyalar = snapshot.data;
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      RowWidget(kampanya: _kampanyalar[0]),
-                      Expanded(child: Text(_kampanyalar[0].content)),
-                      Buttons(kampanya: _kampanyalar[0]),
-                    ],
-                  );
-                }
-                return CircularProgressIndicator();
-              },
-            )));
+        body: FutureBuilder(
+          future: _future,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              _kampanyalar = snapshot.data;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  RowWidget(kampanya: _kampanyalar[0]),
+                  Expanded(child: Content(kampanyalar: _kampanyalar)),
+                  Buttons(kampanya: _kampanyalar[0]),
+                ],
+              );
+            }
+            return CircularProgressIndicator();
+          },
+        ));
+  }
+}
+
+class Content extends StatelessWidget {
+  const Content({
+    Key key,
+    @required List<Kampanya> kampanyalar,
+  })  : _kampanyalar = kampanyalar,
+        super(key: key);
+
+  final List<Kampanya> _kampanyalar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(15),
+      child: Center(
+        child: AutoSizeText(
+          _kampanyalar[0].content,
+          minFontSize: 15,
+        ),
+      ),
+    );
   }
 }
 
@@ -87,24 +109,26 @@ class RowWidget extends StatelessWidget {
   const RowWidget({Key key, this.kampanya}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return Container(
+      margin: EdgeInsets.all(3),
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.black38),
       child: Row(
         children: [
           Container(
-            height: 100,
-            width: 100,
+            height: 50,
+            width: 50,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
                     fit: BoxFit.fill, image: NetworkImage(kampanya.img))),
           ),
-          SizedBox(
-            width: 20,
-          ),
-          Text(
-            kampanya.name.toUpperCase(),
-            style: AppConstants.kHeightTextStyle,
+          Container(
+            child: AutoSizeText(
+              kampanya.name,
+              maxLines: 3,
+            ),
           )
         ],
       ),

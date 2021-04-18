@@ -10,7 +10,8 @@ class PetitionsScreen extends StatefulWidget {
   final bool appBar;
   final int cat;
 
-  const PetitionsScreen({Key key, @required this.type, this.appBar = false,this.cat})
+  const PetitionsScreen(
+      {Key key, @required this.type, this.appBar = false, this.cat})
       : super(key: key);
   @override
   _PetitionsScreenState createState() => _PetitionsScreenState();
@@ -21,9 +22,9 @@ class _PetitionsScreenState extends State<PetitionsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var users = FirebaseFirestore.instance
+    var petitionscol = FirebaseFirestore.instance
         .collection('petitions')
-        .where(widget.type, isEqualTo:widget.appBar ? widget.cat:true);
+        .where(widget.type, isEqualTo: widget.appBar ? widget.cat : true);
 
     return Scaffold(
       appBar: widget.appBar
@@ -33,7 +34,7 @@ class _PetitionsScreenState extends State<PetitionsScreen> {
             )
           : null,
       body: StreamBuilder<QuerySnapshot>(
-        stream: users.snapshots(),
+        stream: petitionscol.snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('hata ${snapshot.error}');
@@ -45,27 +46,23 @@ class _PetitionsScreenState extends State<PetitionsScreen> {
             children: snapshot.data.docs.map((DocumentSnapshot document) {
               return Column(
                 children: [
-                  Hero(
-                    tag: 'Icon',
-                    child: ListTile(
-                      onTap: () async {
-                        await Get.to(InfoScreen(
-                          documentId: document.id,
-                        ));
-                      },
-                      title: Text(document.data()['title']),
-                      subtitle: Text(document.data()['cat'].toString()),
-                      leading: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.amber,
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image:
-                                    NetworkImage(document.data()['imageurl']))),
-                      ),
+                  ListTile(
+                    onTap: () async {
+                      await Get.to(InfoScreen(
+                        documentId: document.id,
+                      ));
+                    },
+                    title: Text(document.data()['title']),
+                    leading: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.amber,
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image:
+                                  NetworkImage(document.data()['imageurl']))),
                     ),
                   ),
                   Divider(),
