@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Image.asset('assets/logo/logo.png'),
+      ),
+    );
   }
 }
