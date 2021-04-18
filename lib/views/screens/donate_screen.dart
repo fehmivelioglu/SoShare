@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:soshare/main.dart';
 
 
 void main() => runApp(DonatePage());
@@ -30,6 +31,7 @@ class DonatePageState extends State<DonatePage> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
+        appBar: AppBar(title: Text('Donate Page'),),
         resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Column(

@@ -7,6 +7,9 @@ class SignPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Sign Page'),
       ),
+      body: Column(
+
+      ),
     );
   }
 }
