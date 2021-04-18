@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:soshare/views/screens/donate_screen.dart';
 import 'package:soshare/views/screens/sign_screen.dart';
 
@@ -26,32 +27,34 @@ class _InfoScreenState extends State<InfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Deneme'),
-          centerTitle: true,
-        ),
-        body: FutureBuilder(
-          future: _future,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              _kampanyalar = snapshot.data;
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
+    return SafeArea(
+      child: Scaffold(
+          body: FutureBuilder(
+        future: _future,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            _kampanyalar = snapshot.data;
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RowWidget(kampanya: _kampanyalar[0]),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      RowWidget(kampanya: _kampanyalar[0]),
-                      Content(kampanyalar: _kampanyalar),
+                      Expanded(child: Content(kampanyalar: _kampanyalar)),
+                      Buttons(kampanya: _kampanyalar[0]),
                     ],
                   ),
-                  Buttons(kampanya: _kampanyalar[0]),
-                ],
-              );
-            }
-            return CircularProgressIndicator();
-          },
-        ));
+                ),
+              ],
+            );
+          }
+          return CircularProgressIndicator();
+        },
+      )),
+    );
   }
 }
 
@@ -66,9 +69,9 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      child: Center(
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: AutoSizeText(
           _kampanyalar[0].content,
           minFontSize: 15,
@@ -90,10 +93,7 @@ class Buttons extends StatelessWidget {
         children: [
           TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DonatePage()),
-                );
+                Get.to(DonatePage());
               },
               child: Text('Bağış Yap')),
           TextButton(
@@ -147,7 +147,6 @@ class RowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
       margin: EdgeInsets.all(3),
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
