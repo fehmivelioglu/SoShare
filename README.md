@@ -35,3 +35,13 @@ Bağış ve İmza kampanyası olarak istediğiniz kategoride kendi kampanyanız�
 
 
 ![imza](https://github.com/fehmivelioglu/SoShare/blob/master/img/yeni.png)
+
+### Kategori Görüntüleme
+
+
+Yardım etmek istediğiniz konuyu spesifik olarak seçerek daha ayrıntılı görünümler sağlayabilirsiniz.
+
+
+![kategoriler](https://github.com/fehmivelioglu/SoShare/blob/master/img/kategoriler.png)
+![kategori](https://github.com/fehmivelioglu/SoShare/blob/master/img/kategori.png)
+
