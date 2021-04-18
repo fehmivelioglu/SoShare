@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soshare/views/screens/donate_screen.dart';
+import 'package:soshare/views/screens/sign_screen.dart';
 
 import '../../core/constants/const.dart';
 import '../../core/model/kampanya_model.dart';
@@ -90,18 +91,33 @@ class Buttons extends StatelessWidget {
           MaterialPageRoute(builder: (context) => DonatePage()),
         );
       }, child: Text('Bağış Yap')),
-          TextButton(onPressed: () => null, child: Text('İmzala'))
+          TextButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignPage()),
+            );
+          }, child: Text('İmzala'))
         ],
       );
     } else if (kampanya.imza == false && kampanya.bagis == true) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [TextButton(onPressed: () => null, child: Text('Bağış Yap'))],
+        children: [TextButton(onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DonatePage()),
+        );
+      }, child: Text('Bağış Yap'))],
       );
     } else if (kampanya.imza == true && kampanya.bagis == false) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [TextButton(onPressed: () => null, child: Text('İmzala'))],
+        children: [TextButton(onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SignPage()),
+          );
+        }, child: Text('İmzala'))],
       );
     } else {
       return Container();
