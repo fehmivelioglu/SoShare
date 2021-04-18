@@ -27,34 +27,38 @@ class _InfoScreenState extends State<InfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: FutureBuilder(
-        future: _future,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            _kampanyalar = snapshot.data;
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RowWidget(kampanya: _kampanyalar[0]),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Expanded(child: Content(kampanyalar: _kampanyalar)),
-                      Buttons(kampanya: _kampanyalar[0]),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          }
-          return CircularProgressIndicator();
-        },
-      )),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Kampanya Detayları'),
+          centerTitle: true,
+        ),
+        body: SafeArea(
+          child: FutureBuilder(
+            future: _future,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                _kampanyalar = snapshot.data;
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RowWidget(kampanya: _kampanyalar[0]),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(child: Content(kampanyalar: _kampanyalar)),
+                          Buttons(kampanya: _kampanyalar[0]),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return CircularProgressIndicator();
+            },
+          ),
+        ));
   }
 }
 
@@ -71,10 +75,13 @@ class Content extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
         child: AutoSizeText(
           _kampanyalar[0].content,
-          minFontSize: 15,
+          minFontSize: 18,
+          style: TextStyle(
+            height: 1.8,
+          ),
         ),
       ),
     );
@@ -87,56 +94,35 @@ class Buttons extends StatelessWidget {
   const Buttons({Key key, this.kampanya}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    if (kampanya.imza == true && kampanya.bagis == true) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TextButton(
-              onPressed: () {
-                Get.to(DonatePage());
-              },
-              child: Text('Bağış Yap')),
-          TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignPage()),
-                );
-              },
-              child: Text('İmzala'))
-        ],
-      );
-    } else if (kampanya.imza == false && kampanya.bagis == true) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DonatePage()),
-                );
-              },
-              child: Text('Bağış Yap'))
-        ],
-      );
-    } else if (kampanya.imza == true && kampanya.bagis == false) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignPage()),
-                );
-              },
-              child: Text('İmzala'))
-        ],
-      );
-    } else {
-      return Container();
-    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        kampanya.bagis ? buttonContainer(0, 'Bağış Yap') : Center(),
+        kampanya.bagis && kampanya.imza ? Container(width: 15,):Container(),
+        kampanya.imza ? buttonContainer(1, 'İmzala') : Center()
+      ],
+    );
+  }
+
+  Container buttonContainer(int index, String title) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+          color: Colors.black38, borderRadius: BorderRadius.circular(10)),
+      child: TextButton(
+          onPressed: () {
+            if (index == 0) {
+              Get.off(DonatePage());
+            } else {
+              Get.off(SignPage());
+            }
+          },
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 15),
+          )),
+    );
   }
 }
 

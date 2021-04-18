@@ -33,44 +33,46 @@ class _PetitionsScreenState extends State<PetitionsScreen> {
               centerTitle: true,
             )
           : null,
-      body: StreamBuilder<QuerySnapshot>(
-        stream: petitionscol.snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('hata ${snapshot.error}');
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
+      body: Padding(padding: EdgeInsets.only(top:20),
+              child: StreamBuilder<QuerySnapshot>(
+          stream: petitionscol.snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text('hata ${snapshot.error}');
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            }
 
-          return ListView(
-            children: snapshot.data.docs.map((DocumentSnapshot document) {
-              return Column(
-                children: [
-                  ListTile(
-                    onTap: () async {
-                      await Get.to(InfoScreen(
-                        documentId: document.id,
-                      ));
-                    },
-                    title: Text(document.data()['title']),
-                    leading: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.amber,
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image:
-                                  NetworkImage(document.data()['imageurl']))),
+            return ListView(
+              children: snapshot.data.docs.map((DocumentSnapshot document) {
+                return Column(
+                  children: [
+                    ListTile(
+                      onTap: () async {
+                        await Get.to(InfoScreen(
+                          documentId: document.id,
+                        ));
+                      },
+                      title: Text(document.data()['title']),
+                      leading: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.amber,
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image:
+                                    NetworkImage(document.data()['imageurl']))),
+                      ),
                     ),
-                  ),
-                  Divider(),
-                ],
-              );
-            }).toList(),
-          );
-        },
+                    Divider(),
+                  ],
+                );
+              }).toList(),
+            );
+          },
+        ),
       ),
     );
   }

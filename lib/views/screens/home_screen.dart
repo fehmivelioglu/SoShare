@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this, initialIndex: 0);
+    _tabController = TabController(length: 5, vsync: this, initialIndex: 1);
   }
 
   @override
@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('SoShare'),),
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen>
           ],
         ),
         bottomNavigationBar: ConvexAppBar(
+          backgroundColor: Colors.indigo[500],
           items: [
             TabItem(icon: Icons.attach_money, title: 'Bağışlar'),
             TabItem(icon: Icons.edit, title: 'İmzalar'),

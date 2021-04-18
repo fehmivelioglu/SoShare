@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:get/get.dart';
+import 'package:soshare/views/screens/home_screen.dart';
 
 void main() => runApp(DonatePage());
 
@@ -23,6 +25,11 @@ class DonatePageState extends State<DonatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
+      appBar: AppBar(
+        title: Text('Odeme Ekranı'),
+        centerTitle: true,
+      ),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -50,27 +57,37 @@ class DonatePageState extends State<DonatePage> {
                         cvvCode: cvvCode,
                         cardHolderName: cardHolderName,
                         expiryDate: expiryDate,
-                        themeColor: Colors.blue,
-                        cardNumberDecoration: const InputDecoration(
+                        themeColor: Colors.red,
+                        cardNumberDecoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Number',
+                          labelText: 'Kart Numarası',
                           hintText: 'XXXX XXXX XXXX XXXX',
                         ),
-                        expiryDateDecoration: const InputDecoration(
+                        expiryDateDecoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Expired Date',
+                          labelText: 'Son kullanma tarihi',
                           hintText: 'XX/XX',
                         ),
-                        cvvCodeDecoration: const InputDecoration(
+                        cvvCodeDecoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'CVV',
                           hintText: 'XXX',
                         ),
-                        cardHolderDecoration: const InputDecoration(
+                        cardHolderDecoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Card Holder',
+                          labelText: 'Isım Soyisim',
                         ),
                         onCreditCardModelChange: onCreditCardModelChange,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 17, vertical: 10),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Miktar',
+                          ),
+                        ),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -79,6 +96,11 @@ class DonatePageState extends State<DonatePage> {
                           } else {
                             print('invalid!');
                           }
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Container(
+                                  height: 50,
+                                  child: Text('Bagisiniz alınmıştır'))));
+                          Get.off(HomeScreen());
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(

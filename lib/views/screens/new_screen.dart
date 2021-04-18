@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:soshare/views/screens/home_screen.dart';
 
 class NewScreen extends StatefulWidget {
   @override
@@ -38,6 +39,13 @@ class _NewScreenState extends State<NewScreen> {
                   TextButton(
                       onPressed: () {
                         addUser(cont1.text, cont2.text, category, imza, bagis);
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()),
+                            (route) => false);
+                        cont1.clear();
+                        cont2.clear();
                       },
                       child: Text('Kampanya Başlat')),
                 ],
