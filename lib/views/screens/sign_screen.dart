@@ -21,32 +21,34 @@ class _SignPageState extends State<SignPage> {
         title: Text('İmzalama Ekranı'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 90),
-          child: Column(children: [
-            TextField(controller: cont1, decoration: decor('Isım Soyisim')),
-            Container(
-              height: 10,
-            ),
-            TextField(controller: cont2, decoration: decor('Email')),
-            Container(
-              height: 10,
-            ),
-            TextField(controller: cont2, decoration: decor('Telefon numarası')),
-            Container(height: 100),
-            TextButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Container(
-                          height: 50, child: Text('İmzanız alınmıştır.'))));
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                      (route) => false);
-                },
-                child: Text('İmzala')),
-          ]),
+      body: SingleChildScrollView(
+              child: Center(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 90),
+            child: Column(children: [
+              TextField(controller: cont1, decoration: decor('Isım Soyisim')),
+              Container(
+                height: 10,
+              ),
+              TextField(controller: cont2, decoration: decor('Email')),
+              Container(
+                height: 10,
+              ),
+              TextField(controller: cont2, decoration: decor('Telefon numarası')),
+              Container(height: 100),
+              TextButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Container(
+                            height: 50, child: Text('İmzanız alınmıştır.'))));
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        (route) => false);
+                  },
+                  child: Text('İmzala')),
+            ]),
+          ),
         ),
       ),
     );

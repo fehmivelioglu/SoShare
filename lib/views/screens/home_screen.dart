@@ -29,28 +29,39 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('SoShare'),),
-        body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: _tabController,
-          children: [
-            PetitionsScreen(type: 'bagis'),
-            PetitionsScreen(type: 'imza'),
-            NewScreen(),
-            Kategoriler(),
-            Profile()
-          ],
+        appBar: AppBar(
+          title: Text('SoShare'),
+          centerTitle: true,
         ),
-        bottomNavigationBar: ConvexAppBar(
-          backgroundColor: Colors.indigo[500],
-          items: [
-            TabItem(icon: Icons.attach_money, title: 'Bağışlar'),
-            TabItem(icon: Icons.edit, title: 'İmzalar'),
-            TabItem(icon: Icons.add, title: 'Yeni'),
-            TabItem(icon: Icons.list, title: 'Kategoriler'),
-            TabItem(icon: Icons.person, title: 'Profil'),
-          ],
-          controller: _tabController,
-        ));
+        body: tabsView(),
+        bottomNavigationBar: tabs());
+  }
+
+  ConvexAppBar tabs() {
+    return ConvexAppBar(
+      backgroundColor: Colors.indigo[500],
+      items: [
+        TabItem(icon: Icons.attach_money, title: 'Bağışlar'),
+        TabItem(icon: Icons.edit, title: 'İmzalar'),
+        TabItem(icon: Icons.add, title: 'Yeni'),
+        TabItem(icon: Icons.list, title: 'Kategoriler'),
+        TabItem(icon: Icons.person, title: 'Profil'),
+      ],
+      controller: _tabController,
+    );
+  }
+
+  TabBarView tabsView() {
+    return TabBarView(
+      physics: NeverScrollableScrollPhysics(),
+      controller: _tabController,
+      children: [
+        PetitionsScreen(type: 'bagis'),
+        PetitionsScreen(type: 'imza'),
+        NewScreen(),
+        Kategoriler(),
+        Profile()
+      ],
+    );
   }
 }

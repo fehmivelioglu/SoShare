@@ -5,7 +5,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset('assets/logo/logo.png'),
+        child: Image.asset('assets/logo.png'),
       ),
     );
   }

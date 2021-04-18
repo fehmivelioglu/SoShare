@@ -17,8 +17,6 @@ class KampanyaService {
         .get()
         .then((e) {
       kampanyalar.add(Kampanya.fromMap(e, 'id'));
-
-      print(kampanyalar.toString() + 'tahsiiin');
     });
     return kampanyalar;
   }
