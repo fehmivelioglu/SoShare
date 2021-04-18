@@ -27,3 +27,11 @@ Desteklemeye karar verdiğiniz kampanyayı bu şekilde imzalayabilirsiniz. Ödem
 
 ![imza](https://github.com/fehmivelioglu/SoShare/blob/master/img/imza.png)
 ![bagis](https://github.com/fehmivelioglu/SoShare/blob/master/img/bagis.png)
+
+### Yeni Kampanya Oluşturma
+
+
+Bağış ve İmza kampanyası olarak istediğiniz kategoride kendi kampanyanızı oluşturabilirsiniz. Bunun için formu doldurmanız yeterli.
+
+
+![imza](https://github.com/fehmivelioglu/SoShare/blob/master/img/yeni.png)
