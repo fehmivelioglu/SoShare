@@ -30,7 +30,7 @@ class Kategoriler extends StatelessWidget {
     for (var i = 0; i < 3; i++) {
       widget.add(GestureDetector(
         onTap: () =>
-            showCategory((row * 3) + i, MockDatas.Kategoriler[(row * i) + i]),
+            showCategory((row * 3) + i, MockDatas.Kategoriler[(row * 3) + i]),
         child: IconContent(
           icon: MockDatas.catIcons[(row * 3) + i],
           label: MockDatas.Kategoriler[(row * 3) + i],

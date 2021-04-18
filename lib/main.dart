@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soshare/views/screens/home_screen.dart';
-import 'package:custom_splash/custom_splash.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,8 +9,13 @@ void main() {
   runApp(App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   // Create the initialization Future outside of `build`:
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
@@ -33,21 +37,19 @@ class App extends StatelessWidget {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var op;
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: CustomSplash(
-        imagePath: 'assets/logo/logo.png',
-        backGroundColor: Colors.teal.shade900,
-        animationEffect: 'zoom-in',
-        logoSize: 200,
-        home: HomeScreen(),
-        duration: 2500,
-        type: CustomSplashType.StaticDuration,
-      ),
+      home: HomeScreen(),
     );
   }
 }

@@ -33,7 +33,12 @@ dependencies:
   cloud_firestore: ^1.0.5
   get: ^4.1.4
   convex_bottom_bar: ^3.0.0
-  custom_splash: ^0.0.2
+  flutter_native_splash: ^1.1.7+1
+  
+flutter_native_splash:
+  image: assets/logo.png
+  color: "ffffff"
+  fullscreen: true
   
 
 dev_dependencies:
