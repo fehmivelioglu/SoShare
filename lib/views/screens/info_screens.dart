@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soshare/views/screens/donate_screen.dart';
 
 import '../../core/constants/const.dart';
 import '../../core/model/kampanya_model.dart';
@@ -83,7 +84,12 @@ class Buttons extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TextButton(onPressed: () => null, child: Text('Bağış Yap')),
+          TextButton(onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DonatePage()),
+        );
+      }, child: Text('Bağış Yap')),
           TextButton(onPressed: () => null, child: Text('İmzala'))
         ],
       );

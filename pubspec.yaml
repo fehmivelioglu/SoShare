@@ -35,6 +35,7 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   auto_size_text: ^2.1.0
   flutter_native_splash: ^1.1.7+1
+  flutter_credit_card: ^2.0.0
   
 flutter_native_splash:
   image: assets/logo.png
