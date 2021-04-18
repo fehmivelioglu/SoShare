@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:soshare/views/screens/donate_screen.dart';
 import 'package:soshare/views/screens/sign_screen.dart';
 
-import '../../core/constants/const.dart';
 import '../../core/model/kampanya_model.dart';
 import '../../core/services/kampanya_service.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -38,10 +37,14 @@ class _InfoScreenState extends State<InfoScreen> {
             if (snapshot.hasData) {
               _kampanyalar = snapshot.data;
               return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  RowWidget(kampanya: _kampanyalar[0]),
-                  Expanded(child: Content(kampanyalar: _kampanyalar)),
+                  Column(
+                    children: [
+                      RowWidget(kampanya: _kampanyalar[0]),
+                      Content(kampanyalar: _kampanyalar),
+                    ],
+                  ),
                   Buttons(kampanya: _kampanyalar[0]),
                 ],
               );
@@ -64,7 +67,7 @@ class Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(20),
       child: Center(
         child: AutoSizeText(
           _kampanyalar[0].content,
@@ -85,39 +88,51 @@ class Buttons extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TextButton(onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DonatePage()),
-        );
-      }, child: Text('Bağış Yap')),
-          TextButton(onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignPage()),
-            );
-          }, child: Text('İmzala'))
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DonatePage()),
+                );
+              },
+              child: Text('Bağış Yap')),
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignPage()),
+                );
+              },
+              child: Text('İmzala'))
         ],
       );
     } else if (kampanya.imza == false && kampanya.bagis == true) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [TextButton(onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DonatePage()),
-        );
-      }, child: Text('Bağış Yap'))],
+        children: [
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DonatePage()),
+                );
+              },
+              child: Text('Bağış Yap'))
+        ],
       );
     } else if (kampanya.imza == true && kampanya.bagis == false) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [TextButton(onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SignPage()),
-          );
-        }, child: Text('İmzala'))],
+        children: [
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignPage()),
+                );
+              },
+              child: Text('İmzala'))
+        ],
       );
     } else {
       return Container();
@@ -147,10 +162,13 @@ class RowWidget extends StatelessWidget {
                 image: DecorationImage(
                     fit: BoxFit.fill, image: NetworkImage(kampanya.img))),
           ),
-          Center(
+          SizedBox(
+            width: 20,
+          ),
+          Flexible(
             // height: 100,
-            child: AutoSizeText(
-              kampanya.name,
+            child: Text(
+              kampanya.name, style: TextStyle(fontSize: 18),
               // maxLines: 3,
             ),
           )
