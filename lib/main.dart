@@ -9,13 +9,7 @@ void main() {
   runApp(App());
 }
 
-class App extends StatefulWidget {
-  // Create the initialization Future outside of `build`:
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
+class App extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
@@ -37,13 +31,7 @@ class _AppState extends State<App> {
   }
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  var op;
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
