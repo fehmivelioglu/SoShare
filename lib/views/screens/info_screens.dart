@@ -132,6 +132,7 @@ class RowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 200,
       margin: EdgeInsets.all(3),
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
@@ -139,17 +140,18 @@ class RowWidget extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: 50,
-            width: 50,
+            height: 100,
+            width: 100,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
                     fit: BoxFit.fill, image: NetworkImage(kampanya.img))),
           ),
-          Container(
+          Center(
+            // height: 100,
             child: AutoSizeText(
               kampanya.name,
-              maxLines: 3,
+              // maxLines: 3,
             ),
           )
         ],
